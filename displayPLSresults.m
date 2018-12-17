@@ -84,35 +84,35 @@ b= triu(ones(nRoi),1);
 b(b==1)=bootstrap_ratio_lv1;
 test=b'+b;
 
-%Threshold BSR
-% pctl=prctile(bootstrap_ratio_lv1,95)
-% %pctl=2.5
-% m=0;sig=1;
-% pVal=(1+erf((abs(pctl)-m)/(sqrt(2)*sig)))/2;
-% pVal=(1-pVal)*2
-% negBSR=bootstrap_ratio_lv1(bootstrap_ratio_lv1<0);
-% pctl_neg=prctile(negBSR,95)
-% posBSR=bootstrap_ratio_lv1(bootstrap_ratio_lv1>0);
-% pctl_pos=prctile(posBSR,95)
-% threshBSR=zeros(size(test));
-% for i = 1:nRoi
-%     for j=1:nRoi
-%         if test(i,j) < 0 && test(i,j) < -(abs(pctl))
-%             threshBSR(i,j)=test(i,j);
-%             
-%         elseif test(i,j) > 0 && test(i,j) > abs(pctl)
-%             threshBSR(i,j)=test(i,j);
-%             
-%         end
-%     end
-% end
-% 
-% cbar=create_colourbar(bootstrap_ratio_lv1, abs(pctl), -abs(pctl));
-% cbar_raw=create_colourbar(bootstrap_ratio_lv1, 0, 0);
-% figure;imagesc(test); colormap(cbar_raw); colorbar
-% figure; imagesc(threshBSR);
-% title(['BSR thresholded at ' num2str(abs(pctl)) ' (p-value = ' num2str(pVal) ')'])
-% colormap(cbar)
-% colorbar
+% Threshold BSR
+pctl=prctile(bootstrap_ratio_lv1,95)
+%pctl=2.5
+m=0;sig=1;
+pVal=(1+erf((abs(pctl)-m)/(sqrt(2)*sig)))/2;
+pVal=(1-pVal)*2
+negBSR=bootstrap_ratio_lv1(bootstrap_ratio_lv1<0);
+pctl_neg=prctile(negBSR,95)
+posBSR=bootstrap_ratio_lv1(bootstrap_ratio_lv1>0);
+pctl_pos=prctile(posBSR,95)
+threshBSR=zeros(size(test));
+for i = 1:nRoi
+    for j=1:nRoi
+        if test(i,j) < 0 && test(i,j) < -(abs(pctl))
+            threshBSR(i,j)=test(i,j);
+            
+        elseif test(i,j) > 0 && test(i,j) > abs(pctl)
+            threshBSR(i,j)=test(i,j);
+            
+        end
+    end
+end
+
+cbar=create_colourbar(bootstrap_ratio_lv1, abs(pctl), -abs(pctl));
+cbar_raw=create_colourbar(bootstrap_ratio_lv1, 0, 0);
+figure;imagesc(test); colormap(cbar_raw); colorbar
+figure; imagesc(threshBSR);
+title(['BSR thresholded at ' num2str(abs(pctl)) ' (p-value = ' num2str(pVal) ')'])
+colormap(cbar)
+colorbar
 end
 
