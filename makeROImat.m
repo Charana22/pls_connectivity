@@ -12,7 +12,9 @@ function [ ] = makeROImat( inputFilename, outputDir, outputFilename,checkImg )
 %       checkImg - Optional Input. Set to 1 if you want to save the ROIs as
 %       .img files. (Default 0)
 
-addpath(genpath('/data/rajsri/marsbar-0.44/'))
+%%SET path_to_marsbar
+path_to_marsbar='/path/to/marsbar/';
+addpath(genpath(path_to_marsbar))
 
 % Check for optional input
 if nargin == 3
@@ -40,8 +42,8 @@ if  checkImg == 1
     end
 end
 
-baseimg='/data/rajsri/wEPI_1.nii';
-myspace=mars_space(baseimg);
+% baseimg='/data/rajsri/wEPI_1.nii';
+% myspace=mars_space(baseimg);
 radius = 4;
 rois = {};
 for pt_no = 1:size(vals,1)
