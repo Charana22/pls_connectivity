@@ -1,6 +1,6 @@
 function [ tc,Onset,R,outMat ] = extractTimeSeriesAllROI(subject_id, dirPath, ouputDirPrefix, roiPath, checkRes )
 %% extractTimeSeriesAllROI(subject_id,dirPath, dirPrefix, roiPath, checkRes ) - Charana Rajagopal
-% This function computes the connectivity matrix for each subject and saves it in the subject's Nifti/Connectivity/<dirPrefix> folder. The saved output file is called subjXXX_Condition.mat (eg: subj102_EncSpatEasy.mat). It contains the following variables:
+% This function computes the connectivity matrix for each subject and saves it in the subject's Nifti/Connectivity/<outputDirPrefix> folder. The saved output file is called subjXXX_Condition.mat (eg: subj102_EncSpatEasy.mat). It contains the following variables:
 %           R - NxN connectivity matrix containing Pearson correlation
 %           coefficients between each of the N ROIs
 %           outMat - "blocked" time series containing the concatenated time
@@ -32,7 +32,7 @@ if ~exist(dirName, 'dir')
 end
 
 %Load SPM.mat
-spm_name=strcat(dirPath,subject_id,'/Nifti/design/SPM.mat');
+spm_name=fullfile(dirPath,subject_id,'design', 'SPM.mat');
 
 
 %Load ROIs
@@ -94,20 +94,11 @@ for i = 1:numel(onsetFiles)
     delim = '_'; replacewith = ''',''';
     Expression = ['{''' strrep(onsetFiles{i},delim,replacewith) '''}'];
     tokens=eval(Expression);
-    % save(strcat('/data/rajsri/connectivity_lizzy/subjMatFiles/subj',subject_id,'_',onsetVecFileName,'.mat'), 'R','outMat');
+    % To save the connectivity matrices.
 %     save(strcat(dirPath,subject_id,'/Nifti/Connectivity/',dirPrefix,'/subj',subject_id,'_',tokens{2}), 'R', 'outMat');
 end
 
 
-% outMat=[outMat,test];
-
-
-% R=corrcoef(outMat);
-% delim = '_'; replacewith = ''',''';
-% Expression = ['{''' strrep(onsetVecFileName,delim,replacewith) '''}'];
-% tokens=eval(Expression);
-% % save(strcat('/data/rajsri/connectivity_lizzy/subjMatFiles/subj',subject_id,'_',onsetVecFileName,'.mat'), 'R','outMat');
-% save(strcat('/data/laborajah2/users/CIHRImaging_Notasksremoved/Young/',subject_id,'/Nifti/Connectivity/MatFiles/subj',subject_id,'_',tokens{2},'.mat'), 'R', 'outMat');
 
 end
 
