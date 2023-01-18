@@ -12,7 +12,8 @@ This code is used in
 <br>
 <br>
 <br>
-Author- Charana Rajagopal (charana.rajagopal@gmail.com)
+Author*- Charana Rajagopal (charana.rajagopal@gmail.com)
+*B. Misic contributed to some parts of the code. 
 
 
 
